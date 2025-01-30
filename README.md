@@ -40,7 +40,7 @@ The MSI installer will be located in the `dist` folder.
 
 ## Download
 
-You can download the latest version of the MSI installer [here](https://github.com/YourUsername/file-comparator/releases/latest/download/DiffChecker.msi).
+You can download the latest version of the MSI installer [here](https://github.com/navercm418/fileCompare/releases/latest/download/DiffChecker.msi).
 
 ## Usage
 
@@ -61,8 +61,3 @@ This project is licensed under the MIT License.
 - Built with [Electron](https://www.electronjs.org/)
 - Diff functionality powered by [diff](https://www.npmjs.com/package/diff)
 - Syntax highlighting by [highlight.js](https://highlightjs.org/)
-
-## Contact
-
-For any questions or suggestions, feel free to open an issue or contact me directly at [YourEmail@example.com].
-
