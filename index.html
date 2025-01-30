@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Diff Checker</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'; object-src 'none';">
+  <link rel="icon" type="image/x-icon" href="app.ico">
+  <link rel="shortcut icon" href="app.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="app.ico">
+  <style>
+    @import url('node_modules/@fontsource/cascadia-code/index.css');
+
+    body {
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', 'monospace';
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f7f9fc;
+      color: #333;
+      position: relative;
+    }
+    h1 {
+      margin: 20px 0;
+      color: #0078d4;
+    }
+    .file-inputs, .container {
+      width: 99%; /* Adjusted to 95% */
+      max-width: 99%; /* Also ensure max-width is 95% */
+      margin: 20px 0;
+    }
+    input[type="file"] {
+      display: none; /* Hide the file input */
+    }
+    label.file-label {
+      margin: 5px;
+      padding: 10px 20px; /* Adjust padding to match the button */
+      background-color: #0078d4; /* Background color */
+      border: none;
+      border-radius: 4px;
+      color: white; /* Text color */
+      font-size: 16px; /* Font size */
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    label.file-label:hover {
+      background-color: #005a9e; /* Hover color */
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #0078d4;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #005a9e;
+    }
+    .container {
+      display: flex;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .file-container {
+      width: 50%;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #fff;
+      overflow: auto;
+    }
+    .separator {
+      border-left: 2px dashed #888;
+      margin: 0 10px;
+    }
+    .added {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .removed {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .unchanged {
+      color: #6c757d;
+    }
+    .line-number {
+      font-weight: bold;
+      color: #888;
+      margin-right: 10px;
+    }
+    .dark-mode {
+      background-color: #293134;
+      color: #bbbcd0;
+    }
+    .dark-mode .file-container {
+      background-color: #293134;
+    }
+    .dark-mode .added {
+      background-color: #155724;
+      color: #d4edda;
+    }
+    .dark-mode .removed {
+      background-color: #721c24;
+      color: #f8d7da;
+    }
+    .dark-mode .unchanged {
+      color: #bbbcd0;
+    }
+    .dark-mode .line-number {
+      color: #bbbcd0;
+    }
+    .dark-mode .separator {
+      border-left: 2px dashed #bbbcd0;
+    }
+    .switch {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    .slider.round {
+      border-radius: 34px;
+    }
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Diff Checker</h1>
+  <div class="file-inputs">
+    <input type="file" id="file1" />
+    <label class="file-label" for="file1">Choose File 1</label>
+    <input type="file" id="file2" />
+    <label class="file-label" for="file2">Choose File 2</label>
+    <button onclick="compareFiles()">Compare</button>
+  </div>
+  <div class="container">
+    <pre id="file1-output" class="file-container"></pre>
+    <div class="separator"></div>
+    <pre id="file2-output" class="file-container"></pre>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="toggle-theme" onclick="toggleTheme()">
+    <span class="slider round"></span>
+  </label>
+  <script src="renderer.js"></script>
+</body>
+</html>

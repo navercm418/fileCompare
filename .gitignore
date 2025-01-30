@@ -1,0 +1,9 @@
+# Ignore specific large files
+dist/file-comparator 1.0.0.msi
+dist/file-comparator Setup 1.0.0.exe
+dist/win-unpacked/file-comparator.exe
+node_modules/electron/dist/electron.exe
+
+# Ignore entire directories
+dist/
+node_modules/
